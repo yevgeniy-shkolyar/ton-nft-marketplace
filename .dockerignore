@@ -1,0 +1,50 @@
+# helm
+helm
+
+# gitlab ci
+.gitlab-ci.yml
+
+# compiled output
+dist
+
+# dependencies
+node_modules
+**/node_modules
+
+# tests
+coverage
+
+# git, vs config
+.git
+.gitlab
+.gitlab-ci.yml
+.husky
+.vscode
+**/.vscode
+.idea
+**/.idea
+
+# docs
+CHANGELOG.md
+README.md
+
+# Yarn
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+
+# env
+.env*
+
+docker-compose.yml
+docker-bake.hcl
+Dockerfile
+k8s
+
+out
+apps/client/.next/cache/
+
+.turbo

@@ -1,0 +1,61 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Account {
+  address: Address!
+}
+
+type Address {
+  frienlyFormat: String
+  rawFormat: String
+}
+
+input CursorPaginationInput {
+  cursor: String
+  limit: Int! = 5
+}
+
+type NftItem {
+  address: Address!
+  description: String
+  id: ID!
+  name: String
+  owner: Account
+  preview(resolution: Resolution): String
+}
+
+type NftItemConnection {
+  """A list of edges."""
+  edges: [NftItemEdge!]!
+
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+}
+
+type NftItemEdge {
+  """Description for the cursor."""
+  cursor: ID!
+
+  """Description for the NFT item."""
+  nftItem: NftItem!
+}
+
+type PageInfo {
+  """The end cursor."""
+  endCursor: ID
+
+  """Whether there is a next page."""
+  hasNextPage: Boolean!
+}
+
+type Query {
+  nftItems(query: CursorPaginationInput!): NftItemConnection!
+}
+
+enum Resolution {
+  X5
+  X100
+  X500
+  X1500
+}

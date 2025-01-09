@@ -1,0 +1,30 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+      "lib": ["dom", "ES2021.String"] ,
+      "outDir": "./dist",
+      "emitDecoratorMetadata": true,
+      "experimentalDecorators": true,
+      "noImplicitReturns": false,
+      "noEmit": true,
+      "moduleResolution": "node",
+      "jsx": "preserve",
+      "plugins": [
+          {
+              "name": "next"
+          }
+      ],
+      "strictNullChecks": true,
+      "baseUrl": "./",
+      "paths": { "@/*": ["./*"] }
+  },
+  "exclude": [
+    "node_modules",
+    "dist",
+  ],
+  "include": [
+    "next-env.d.ts",
+    ".next/types/**/*.ts",
+    "**/*.ts",
+    "**/*.tsx", ]
+}

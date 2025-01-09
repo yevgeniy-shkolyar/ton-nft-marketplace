@@ -1,0 +1,76 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    :root {
+        --background: var(--tg-theme-bg-color, #f2f2f2);
+        --foreground: var(--tg-theme-text-color, #020817);
+        --card: var(--tg-theme-secondary-bg-color, #ffffff);
+        --card-foreground: var(--tg-theme-text-color, #020817);
+        --popover: var(--tg-theme-bg-color, #f2f2f2);
+        --popover-foreground: var(--tg-theme-text-color, #020817);
+        --primary: var(--tg-theme-button-color, #0f172a);
+        --primary-foreground: var(--tg-theme-button-text-color, #f8fafc);
+        --secondary: var(--tg-theme-secondary-bg-color, #ffffff);
+        --secondary-foreground: var(--tg-theme-text-color, #020817);
+        --muted: var(--tg-theme-hint-color, #f1f5f9);
+        --muted-foreground: var(--tg-theme-bg-color, #64748b);
+        --accent: var(--tg-theme-accent-text-color, #f1f5f9);
+        --accent-foreground: var(--tg-theme-bg-color, #f8fafc);
+        --destructive: var(--tg-theme-destructive-text-color, #ef4444);
+        --destructive-foreground: var(--tg-theme-bg-color, #f8fafc);
+        --border: var(--tg-theme-section-separator-color, #e2e8f0);
+
+        --ring: 240 10% 3.9%;
+
+        --radius: 0.5rem;
+
+        --chart-1: 12 76% 61%;
+
+        --chart-2: 173 58% 39%;
+
+        --chart-3: 197 37% 24%;
+
+        --chart-4: 43 74% 66%;
+
+        --chart-5: 27 87% 67%;
+    }
+
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        overflow: hidden; /* Отключаем скролл для body */
+    }
+
+    body {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+    }
+
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --background: var(--tg-theme-bg-color, #1c1c1c);
+        --foreground: var(--tg-theme-text-color, #e5e5e5);
+        --card: var(--tg-theme-secondary-bg-color, #2a2a2a);
+        --card-foreground: var(--tg-theme-text-color, #e5e5e5);
+        --popover: var(--tg-theme-bg-color, #2a2a2a);
+        --popover-foreground: var(--tg-theme-text-color, #e5e5e5);
+        --primary: var(--tg-theme-button-color, #3b82f6);
+        --primary-foreground: var(--tg-theme-button-text-color, #ffffff);
+        --secondary: var(--tg-theme-secondary-bg-color, #3a3a3a);
+        --secondary-foreground: var(--tg-theme-text-color, #cbd5e1);
+        --muted: var(--tg-theme-hint-color, #4b5563);
+        --muted: var(--tg-theme-hint-color, #f1f5f9);
+        --muted-foreground: var(--tg-theme-text-color, #64748b);
+        --accent: var(--tg-theme-accent-text-color, #f1f5f9);
+        --destructive: var(--tg-theme-destructive-text-color, #ef4444);
+        --destructive-foreground: var(--tg-theme-text-color, #ffffff);
+        --border: var(--tg-theme-section-separator-color, #374151);
+    }
+}

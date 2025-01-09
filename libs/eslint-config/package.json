@@ -1,0 +1,33 @@
+{
+    "name": "@ton-nft-marketplace/eslint-config",
+    "version": "0.1.0",
+    "exports": {
+        ".": "./index.mjs"
+    },
+    "main": "./index.mjs",
+    "dependencies": {
+        "@eslint/compat": "1.2.0",
+        "@eslint/js": "9.12.0",
+        "@typescript-eslint/eslint-plugin": "8.8.1",
+        "@typescript-eslint/parser": "8.8.1",
+        "eslint": "9.16.0",
+        "eslint-config-prettier": "9.1.0",
+        "eslint-import-resolver-typescript": "3.6.3",
+        "eslint-plugin-eslint-comments": "3.2.0",
+        "eslint-plugin-import": "2.31.0",
+        "eslint-plugin-import-alias": "1.2.0",
+        "eslint-plugin-jest": "28.8.3",
+        "eslint-plugin-jsdoc": "50.3.1",
+        "eslint-plugin-json": "4.0.1",
+        "eslint-plugin-jsx-a11y": "6.10.0",
+        "eslint-plugin-prettier": "5.2.1",
+        "eslint-plugin-react": "7.37.1",
+        "eslint-plugin-simple-import-sort": "12.1.1",
+        "eslint-plugin-sonarjs": "3.0.1",
+        "eslint-plugin-unicorn": "56.0.1",
+        "globals": "15.10.0",
+        "prettier": "3.3.3",
+        "typescript": "5.6.2",
+        "typescript-eslint": "8.17.0"
+    }
+}

@@ -1,0 +1,147 @@
+import globals from 'globals';
+import pluginJs from '@eslint/js';
+import eslintPluginImport from 'eslint-plugin-import';
+import eslintPluginPrettier from 'eslint-plugin-prettier';
+import eslintPluginSimpleImportSort from 'eslint-plugin-simple-import-sort';
+import prettier from 'eslint-plugin-prettier/recommended';
+import unicorn from 'eslint-plugin-unicorn';
+import sonarjs from 'eslint-plugin-sonarjs';
+import tsEslint from 'typescript-eslint';
+import importAlias from 'eslint-plugin-import-alias';
+
+export default [
+    { files: ['**/*.{ts,tsx,json}'] },
+    { languageOptions: { globals: globals.browser } },
+    pluginJs.configs.recommended,
+    ...tsEslint.configs.strictTypeChecked,
+    ...tsEslint.configs.stylisticTypeChecked,
+    unicorn.configs['flat/recommended'],
+    sonarjs.configs.recommended,
+    prettier,
+    {
+        plugins: {
+            import: eslintPluginImport,
+            prettier: eslintPluginPrettier,
+            'simple-import-sort': eslintPluginSimpleImportSort,
+            'import-alias': importAlias,
+        },
+        rules: {
+            'consistent-this': ['error', 'self'],
+            'dot-notation': 'warn',
+            eqeqeq: ['warn', 'smart'],
+            'func-names': ['error', 'never'],
+            'guard-for-in': 'error',
+            'import/newline-after-import': 'error',
+            'import/no-extraneous-dependencies': 'error',
+            'import/no-unresolved': 'off',
+            'import/order': [
+                'error',
+                {
+                    alphabetize: { order: 'asc' },
+                    groups: [
+                        'builtin',
+                        'external',
+                        'internal',
+                        'parent',
+                        'sibling',
+                        'index',
+                    ],
+                    'newlines-between': 'always',
+                },
+            ],
+            'jsdoc/check-tag-names': 'off',
+            'jsdoc/no-undefined-types': 'off',
+            'jsdoc/require-jsdoc': 'off',
+            'jsdoc/require-property': 'off',
+            'max-len': [
+                'warn',
+                120,
+                {
+                    comments: 140,
+                    ignoreStrings: true,
+                    ignoreTemplateLiterals: true,
+                    ignoreUrls: true,
+                    tabWidth: 4,
+                },
+            ],
+            'max-statements-per-line': ['error', { max: 1 }],
+            'new-cap': ['error', { capIsNew: false }],
+            'no-array-constructor': 'error',
+            'no-async-promise-executor': 'warn',
+            'no-console': ['warn', { allow: ['warn', 'error'] }],
+            'no-constant-binary-expression': 'error',
+            'no-constant-condition': 'off',
+            'no-div-regex': 'error',
+            'no-duplicate-imports': 'error',
+            'no-else-return': 'warn',
+            'no-extend-native': 'error',
+            'no-extra-bind': 'error',
+            'no-implicit-coercion': 'warn',
+            'no-implied-eval': 'error',
+            'no-lonely-if': 'error',
+            'no-loop-func': 'error',
+            'no-multi-assign': 'error',
+            'no-new-object': 'error',
+            'no-octal-escape': 'error',
+            'no-param-reassign': 'warn',
+            'no-prototype-builtins': 'warn',
+            'no-return-assign': 'error',
+            'no-self-compare': 'error',
+            'no-sequences': 'error',
+            'no-throw-literal': 'error',
+            'no-underscore-dangle': ['warn', { allowAfterThis: true }],
+            'no-unmodified-loop-condition': 'error',
+            'no-unneeded-ternary': 'error',
+            'no-unused-expressions': 'error',
+            'no-unused-private-class-members': 'warn',
+            "no-unused-vars": "off",
+            "@typescript-eslint/no-unused-vars": [
+                "warn",
+                {
+                    "argsIgnorePattern": "^_",
+                    "varsIgnorePattern": "^_",
+                    "caughtErrorsIgnorePattern": "^_"
+                }
+            ],
+            'no-use-before-define': [
+                'error',
+                { classes: false, functions: false },
+            ],
+            'no-useless-call': 'error',
+            'no-useless-computed-key': 'error',
+            'no-useless-concat': 'error',
+            'no-useless-constructor': 'warn',
+            'no-useless-rename': 'error',
+            'no-useless-return': 'warn',
+            'no-var': 'error',
+            'no-void': 'error',
+            'no-with': 'error',
+            'object-shorthand': 'error',
+            'one-var': ['error', 'never'],
+            'prefer-arrow-callback': 'error',
+            'prefer-const': ['error', { destructuring: 'all' }],
+            'prefer-destructuring': 'warn',
+            'prefer-exponentiation-operator': 'warn',
+            'prefer-numeric-literals': 'warn',
+            'prefer-object-has-own': 'warn',
+            'prefer-object-spread': 'warn',
+            'prefer-promise-reject-errors': 'error',
+            'prefer-regex-literals': 'error',
+            'prefer-rest-params': 'error',
+            'prefer-spread': 'error',
+            'prefer-template': 'error',
+            'prettier/prettier': 'error',
+            radix: 'error',
+            'require-atomic-updates': 'warn',
+            strict: ['error', 'never'],
+            'symbol-description': 'warn',
+            yoda: 'error',
+        },
+    },
+    {
+        rules: {
+            ...eslintPluginImport.configs.typescript.rules,
+            ...eslintPluginPrettier.configs.recommended.rules,
+        },
+    },
+];

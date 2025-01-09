@@ -1,0 +1,22 @@
+{
+    "name": "ton-nft-marketplace",
+    "version": "0.1.0",
+    "description": "",
+    "workspaces": [
+        "apps/*",
+        "libs/*"
+    ],
+    "private": true,
+    "scripts": {
+        "dev": "yarn workspaces foreach --recursive --parallel --interlaced --from '{@ton-nft-marketplace/client,@ton-nft-marketplace/api}' run dev",
+        "verify": "yarn workspaces foreach --parallel --verbose run verify",
+        "release": "dotenv -e .env -e .env.sample -- semantic-release",
+        "codegen": "graphql-codegen"
+    },
+    "packageManager": "yarn@4.5.3",
+    "devDependencies": {
+        "@types/node": "22.7.4",
+        "ts-node": "10.9.2",
+        "typescript": "5.6.2"
+    }
+}
