@@ -2,6 +2,7 @@ import { AppConfigSchema } from './app.config';
 import { GraphqlConfigSchema } from './graphql.config';
 import { LoggerConfigSchema } from './logger.config';
 import { NotionConfigSchema } from './notion.config';
+import { TelegramConfigSchema } from './telegram.config';
 import { TonConfigSchema } from './ton.config';
 
 export interface Config {
@@ -10,4 +11,5 @@ export interface Config {
     graphql: GraphqlConfigSchema;
     notion: NotionConfigSchema;
     ton: TonConfigSchema;
+    telegram: TelegramConfigSchema;
 }

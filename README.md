@@ -19,3 +19,18 @@ yarn install
 ```shell
 yarn dev
 ```
+
+
+### FRP (Fast Reverse Proxy).
+
+```sh
+brew install frpc
+yarn dotenv -e .env.secrets.decrypted -- frpc -c frpc.toml
+```
+
+### Build docker
+
+```sh
+docker buildx bake --load api client
+```
+

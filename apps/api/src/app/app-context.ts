@@ -1,7 +1,6 @@
 import { Request } from 'express';
 
-// import { AppAbility } from '../auth/policy/ability.factory';
-// import { User } from '../prisma/client';
+import { TelegramUser } from '../telegram-login-widget/interfaces/telegram-user';
 
 export interface GraphqlContextChat {
     telegramChatId: string;
@@ -10,8 +9,6 @@ export interface GraphqlContextChat {
 
 export interface GraphqlContext {
     request: Request;
-    // user: User;
-    chat: GraphqlContextChat | undefined;
-    tokenIssuer: string;
-    // ability: AppAbility;
+    user?: TelegramUser;
+    tokenIssuer: 'tg-web' | 'bff';
 }

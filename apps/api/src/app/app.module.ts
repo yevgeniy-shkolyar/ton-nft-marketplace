@@ -2,21 +2,26 @@ import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { APP_GUARD } from '@nestjs/core';
 import { GraphQLModule } from '@nestjs/graphql';
 import { Request } from 'express';
 
 import { AccountGraphqlModule } from '../account/graphql/account-graphql.module';
 import { AddressGraphqlModule } from '../address/graphql/address-graphql.module';
+import { AuthGuard } from '../auth/auth.guards';
+import { AuthModule } from '../auth/auth.module';
 import { Config } from '../config';
 import { appConfig } from '../config/app.config';
 import { graphqlConfig } from '../config/graphql.config';
 import { loggerConfig } from '../config/logger.config';
 import { notionConfig } from '../config/notion.config';
+import { telegramConfig } from '../config/telegram.config';
 import { tonConfig } from '../config/ton.config';
 import { LoggerModule } from '../logger/logger.module';
 import { LoggerService } from '../logger/logger.service';
 import { NftItemGraphqlModule } from '../nft-item/graphql/nft-item-graphql.module';
 import { NotionModule } from '../notion/notion.module';
+import { UserGraphqlModule } from '../user/graphql/user-graphql.module';
 
 @Module({
     imports: [
@@ -25,7 +30,8 @@ import { NotionModule } from '../notion/notion.module';
         NftItemGraphqlModule,
         AccountGraphqlModule,
         AddressGraphqlModule,
-        // AuthModule,
+        UserGraphqlModule,
+        AuthModule,
         ConfigModule.forRoot({
             isGlobal: true,
             envFilePath: ['.env', '../../.env.secrets.decrypted'],
@@ -35,6 +41,7 @@ import { NotionModule } from '../notion/notion.module';
                 graphqlConfig,
                 notionConfig,
                 tonConfig,
+                telegramConfig,
             ],
         }),
         GraphQLModule.forRootAsync<ApolloDriverConfig>({
@@ -73,11 +80,11 @@ import { NotionModule } from '../notion/notion.module';
             },
         }),
     ],
-    // providers: [
-    //     {
-    //         provide: APP_GUARD,
-    //         useExisting: AuthGuard,
-    //     },
-    // ],
+    providers: [
+        {
+            provide: APP_GUARD,
+            useExisting: AuthGuard,
+        },
+    ],
 })
-export class TeamApiModule {}
+export class AppModule {}

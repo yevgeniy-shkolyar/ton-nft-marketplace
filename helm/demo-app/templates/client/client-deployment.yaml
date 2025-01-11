@@ -1,0 +1,86 @@
+{{- if .Values.client.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.client.name }}
+  labels:
+    name: {{ .Values.client.name }}
+    {{- include "app.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.client.replicas }}
+  strategy:
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      name: {{ .Values.client.name }}
+      {{- include "app.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        name: {{ .Values.client.name }}
+        {{- include "app.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "app.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      imagePullSecrets: 
+        - name: gitlab-token-auth
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.app.registry }}/client:{{ .Values.app.version | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.client.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.client.service.port }}
+              protocol: TCP
+          env:
+            - name: PORT
+              value: {{ .Values.client.service.port | quote }}
+            - name: NEXT_PUBLIC_GRAPHQL_URI
+              value: https://{{ .Values.ingress.host }}/graphql
+            - name: NEXT_PUBLIC_TELEGRAM_BOT_NAME
+              value: {{ .Values.client.env.bot }}
+            - name: API_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: demo-app-secret
+                  key: apiSecret
+          livenessProbe:
+            httpGet:
+              path: /auth/login
+              port: http
+            initialDelaySeconds: 60       
+            periodSeconds: 10
+            timeoutSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /auth/login
+              port: http
+            initialDelaySeconds: 60       
+            periodSeconds: 10
+            timeoutSeconds: 5
+          resources:
+            {{- toYaml .Values.client.resources | nindent 12 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+{{- end }}

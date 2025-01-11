@@ -1,0 +1,19 @@
+serverAddr = "frp.tgmbot.com"
+serverPort = 30070
+auth.method = "token"
+auth.token = "{{ .Envs.FRPS_SECRET }}"
+
+[[proxies]]
+name = "client"
+type = "http"
+localPort = 3000
+customDomains = ["{{ .Envs.FRPS_HOST }}"]
+locations = ["/"]
+
+[[proxies]]
+name = "api"
+type = "http"
+localPort = 3001
+customDomains = ["{{ .Envs.FRPS_HOST }}"]
+locations = ["/graphql"]
+

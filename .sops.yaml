@@ -1,0 +1,8 @@
+creation_rules:
+  - path_regex: \.env\.secrets.decrypted$
+    pgp: >-
+      120391F513F154BD98820AB2183FF3C9E923BF80
+
+  - path_regex: .decrypted.yaml$
+    pgp: >-
+      120391F513F154BD98820AB2183FF3C9E923BF80

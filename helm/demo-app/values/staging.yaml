@@ -1,0 +1,16 @@
+ingress:
+  host: demo.tgmbot.com
+
+bot:
+  replicas: 1
+  enabled: true
+
+api:
+  replicas: 1
+  enabled: true
+
+client:
+  replicas: 1
+  enabled: true
+  env:
+    bot: demo_tgm_bot

@@ -2,7 +2,7 @@ import type { Config } from 'tailwindcss';
 
 const config = {
     darkMode: ['class'],
-    content: ['./components/**/*.{ts,tsx}'],
+    content: ['./components/**/*.{ts,tsx}', './app/**/*.{ts,tsx}'],
     prefix: '',
     theme: {
         container: {
@@ -13,14 +13,8 @@ const config = {
             },
         },
         extend: {
-            animation: {
-                'accordion-down': 'accordion-down 0.2s ease-out',
-                'accordion-up': 'accordion-up 0.2s ease-out',
-            },
-            borderRadius: {
-                lg: 'var(--radius)',
-                md: 'calc(var(--radius) - 2px)',
-                sm: 'calc(var(--radius) - 4px)',
+            boxShadow: {
+                xs: 'var(--sm-shadow)',
             },
             colors: {
                 background: 'var(--background)',
@@ -56,6 +50,9 @@ const config = {
                 border: 'var(--border)',
                 input: 'var(--input)',
                 ring: 'var(--ring)',
+                borderColor: {
+                    DEFAULT: 'var(--border-color)',
+                },
                 chart: {
                     '1': 'var(--chart-1)',
                     '2': 'var(--chart-2)',
