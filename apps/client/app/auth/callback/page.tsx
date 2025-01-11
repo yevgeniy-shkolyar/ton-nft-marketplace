@@ -43,7 +43,7 @@ const AuthCallback = () => {
                         router.push(
                             tgWebAppStartParameter
                                 ? `/${tgWebAppStartParameter.replaceAll('_', '/')}`
-                                : '/addresses',
+                                : '/marketplace',
                         );
                     }
                 })

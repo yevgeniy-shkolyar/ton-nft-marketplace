@@ -1,0 +1,190 @@
+stages:
+  - release
+  - build
+  - public
+  - deploy
+
+.environment: &environment |
+  export CHART_VERSION=$(cat helm/demo-app/Chart.yaml | grep version | cut -f2 -d':' | cut -c2-)
+  export ENVIRONMENT="staging"
+  export NAMESPACE="demo-app-stg"
+  export VERSION=$CI_PIPELINE_ID
+  export DOCKER_REGISTRY=$CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/staging
+
+.helm:
+  image: 
+    name: registry.gitlab.com/tgmbot/gitlab-runner/helm:0.2.0
+    entrypoint: [""]
+  tags:
+    - tgmbot-k8s-runner
+
+.kubectl:
+  image:
+    name: bitnami/kubectl
+    entrypoint: ['']
+  tags:
+    - tgmbot-k8s-runner
+
+.bake:
+  stage: build
+  image: registry.gitlab.com/tgmbot/gitlab-runner/docker
+  tags:
+    - tgmbot-local-runner
+  script:
+    - *environment
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - echo -e "Built \xF0\x9F\x94\xA5"
+    - docker buildx ls
+    - >
+        export CACHE_TAG=$(cat
+        Dockerfile
+        yarn.lock
+        | sha1sum
+        | cut -b 1-7)
+    - >
+        docker buildx ls
+        | grep -q 'builder'
+        || docker buildx create
+        --name builder
+        --use
+        --driver-opt image=moby/buildkit:buildx-stable-1
+    - >
+        docker buildx bake
+        --print
+        ${SERVICES}
+    - >
+        docker buildx bake
+        --builder builder
+        --push
+        --progress plain
+        --provenance false
+        ${SERVICES}
+    - echo -e "Finished \xF0\x9F\x8F\x81"
+  variables:
+    GIT_STRATEGY: clone
+
+api:
+    extends: .bake
+    variables:
+        SERVICES: api
+
+client:
+    extends: .bake
+    variables:
+        SERVICES: client
+
+helm package:
+  extends: .helm
+  stage: public
+  needs: []
+  script:
+    - *environment
+    - helm package --app-version $VERSION ./helm/demo-app
+    - export ENV=$([ "$CI_COMMIT_REF_NAME" = "value" ] && echo "YES" || echo "NO")
+    - echo $CHART_VERSION
+    - echo $ENVIRONMENT
+    - >
+      curl
+      --request POST
+      --form chart=@demo-app-${CHART_VERSION}.tgz
+      --user $GITLAB_REGISTRY_USERNAME:$GITLAB_REGISTRY_ACCESS_TOKEN
+      https://gitlab.com/api/v4/projects/$CI_PROJECT_ID/packages/helm/api/${ENVIRONMENT}/charts
+
+helm diff:
+  extends: .helm
+  stage: public
+  needs:
+    - helm package
+  image:
+    name: chatwork/helmfile
+    entrypoint: [""]
+  environment:
+    name: production
+    action: prepare
+  script:
+    - chmod 400 "$KUBECONFIG"
+    - *environment
+    - cat $GPG_KEY | gpg --batch --import
+    - gpg --list-secret-keys
+    - gpg -k
+    - gpg -K
+    - >
+      helm repo add
+      --username $GITLAB_REGISTRY_USERNAME
+      --password $GITLAB_REGISTRY_ACCESS_TOKEN
+      tgmbot
+      https://gitlab.com/api/v4/projects/$CI_PROJECT_ID/packages/helm/${ENVIRONMENT}
+    - >
+      helm secrets diff upgrade
+      --version $CHART_VERSION
+      --allow-unreleased
+      demo-app-release tgmbot/demo-app
+
+.deploy:
+  extends: .helm
+  stage: deploy
+  script:
+    - chmod 400 "$KUBECONFIG"
+    - *environment
+    - cat $GPG_KEY | gpg --batch --import
+    - >
+      helm repo add
+      --username $GITLAB_REGISTRY_USERNAME
+      --password $GITLAB_REGISTRY_ACCESS_TOKEN
+      tgmbot
+      https://gitlab.com/api/v4/projects/$CI_PROJECT_ID/packages/helm/${ENVIRONMENT}
+    - >
+      helm secrets upgrade
+      --namespace $NAMESPACE
+      --create-namespace
+      -i demo-app
+      --version $CHART_VERSION
+      -f helm/demo-app/values/${ENVIRONMENT}-credentials.yaml
+      -f helm/demo-app/values/${ENVIRONMENT}.yaml
+      --set-string app.registry=${DOCKER_REGISTRY}
+      --set-string app.version=${VERSION}
+      --dry-run
+      tgmbot/demo-app
+    - >
+      helm secrets upgrade
+      --namespace $NAMESPACE
+      --create-namespace
+      -i demo-app
+      --version $CHART_VERSION
+      -f helm/demo-app/values/${ENVIRONMENT}-credentials.yaml
+      -f helm/demo-app/values/${ENVIRONMENT}.yaml
+      --set-string app.registry=${DOCKER_REGISTRY}
+      --set-string app.version=${VERSION}
+      tgmbot/demo-app
+
+deploy staging:
+  extends: .deploy
+  stage: deploy
+  needs:
+    - helm package
+    - api
+    - client
+  environment:
+    name: staging
+    url: https://demo.tgmbot.com/
+
+.registry-secrets:
+  extends: .kubectl
+  stage: deploy
+  needs: []
+  when: manual
+  before_script:
+    - *environment
+  script:
+    - kubectl delete --ignore-not-found=true secret gitlab-token-auth
+    - >
+      kubectl create secret docker-registry gitlab-token-auth
+      --namespace $NAMESPACE
+      --docker-server=https://registry.gitlab.com
+      --docker-username=$GITLAB_REGISTRY_USERNAME
+      --docker-password=$GITLAB_REGISTRY_ACCESS_TOKEN
+
+secrets to staging:
+  extends: .registry-secrets
+  when: manual
+  stage: deploy

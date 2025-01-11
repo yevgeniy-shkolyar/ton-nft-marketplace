@@ -1,0 +1,17 @@
+#import NftItemFragment from "../fragments/nft-item.fragments.graphql"
+
+query NftItems ($query: CursorPaginationInput!) {
+  nftItems(query: $query) {
+        edges {
+            cursor
+            nftItem {
+                ...NftItemFragment
+            }
+        }
+        pageInfo {
+            endCursor
+            hasNextPage
+        }
+    }
+}
+

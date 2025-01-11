@@ -1,0 +1,78 @@
+replicaCount: 1
+
+api:
+  replicas: 1
+  enabled: true
+  migration:
+    enabled: true
+  name: demo-app-api
+  env:
+    secret: secret
+  image:
+    pullPolicy: Always
+  resources:
+    limits:
+      memory: 400Mi
+    requests:
+      memory: 200Mi
+  service:
+    type: ClusterIP
+    port: 3000
+
+client:
+  replicas: 1
+  enabled: true
+  name: demo-app-client
+  image:
+    pullPolicy: Always
+  env:
+    bot: tgm_com_bot
+  resources:
+    limits:
+      memory: 400Mi
+    requests:
+      memory: 200Mi
+  service:
+    type: ClusterIP
+    port: 3000
+
+serviceAccount:
+  create: true
+  annotations: {}
+  name: ""
+
+imagePullSecrets: []
+
+nameOverride: ""
+
+podAnnotations: {}
+
+podSecurityContext: {}
+
+securityContext: {}
+
+ingress:
+  enabled: true
+  host: demo.tgmbot.com
+  className: ""
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+telegram:
+  token: ""
+
+notion:
+  appSecret: ""
+  databaseId: ""
+
+ton:
+  baseUrl: "https://tonapi.io"
+  apiKey: ""
+
+app:
+  registry: "registry.gitlab.com/tgmbot/demo-app/staging"
+  version:

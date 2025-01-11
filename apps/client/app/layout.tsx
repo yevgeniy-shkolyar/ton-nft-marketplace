@@ -1,5 +1,5 @@
 import { Roboto } from 'next/font/google';
-import Script from 'next/script';
+import { PublicEnvScript } from 'next-runtime-env';
 import * as React from 'react';
 import type { PropsWithChildren } from 'react';
 
@@ -15,10 +15,7 @@ export default function RootLayout({ children }: Readonly<PropsWithChildren>) {
     return (
         <html suppressHydrationWarning lang="en">
             <head>
-                <Script
-                    src="https://telegram.org/js/telegram-web-app.js"
-                    strategy="beforeInteractive"
-                />
+                <PublicEnvScript />
             </head>
             <body className={mono.className}>{children}</body>
         </html>

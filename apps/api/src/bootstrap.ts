@@ -9,13 +9,13 @@ import {
 import cookieParser from 'cookie-parser';
 import { ReasonPhrases, StatusCodes } from 'http-status-codes';
 
-import { TeamApiModule } from './app/app.module';
+import { AppModule } from './app/app.module';
 import { Config } from './config';
 import { LoggerService } from './logger/logger.service';
 
 export async function bootstrap(port?: number) {
     const app = await NestFactory.create<NestExpressApplication>(
-        TeamApiModule,
+        AppModule,
         new ExpressAdapter(),
         {
             bufferLogs: true,

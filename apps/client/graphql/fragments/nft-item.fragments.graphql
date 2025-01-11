@@ -1,0 +1,6 @@
+fragment NftItemFragment on NftItem {
+    id
+    name
+    description
+    src: preview(resolution: X500)
+}

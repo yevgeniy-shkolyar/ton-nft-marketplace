@@ -1,6 +1,10 @@
 /**
  * @type {import('next').NextConfig}
  */
-const nextConfig = {};
+const nextConfig = {
+  images: {
+    domains: ['cache.tonapi.io'],
+  },
+};
 
 export default nextConfig;

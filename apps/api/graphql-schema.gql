@@ -50,6 +50,7 @@ type PageInfo {
 }
 
 type Query {
+  me: User!
   nftItems(query: CursorPaginationInput!): NftItemConnection!
 }
 
@@ -58,4 +59,9 @@ enum Resolution {
   X100
   X500
   X1500
+}
+
+type User {
+  id: String
+  random: String!
 }

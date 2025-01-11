@@ -1,0 +1,22 @@
+projects:
+  client:
+    schema: 
+      apps/api/graphql-schema.gql
+    documents:
+      - apps/client/**/*.graphql
+    extensions:
+      codegen:
+        generates:
+          apps/client/graphql/generated/types.ts:
+            documents:
+              - apps/client/**/*.graphql
+            plugins:
+              - add:
+                  content: '/* eslint-disable unicorn/no-abusive-eslint-disable */'
+              - add:
+                  content: '/* eslint-disable */'
+              - add:
+                  content: '// @ts-nocheck'
+              - typescript
+              - typescript-operations
+              - typed-document-node
