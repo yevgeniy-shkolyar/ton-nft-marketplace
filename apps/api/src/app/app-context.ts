@@ -1,6 +1,6 @@
 import { Request } from 'express';
 
-import { TelegramUser } from '../telegram-login-widget/interfaces/telegram-user';
+import { TelegramUser } from '../telegram/interfaces/telegram-user';
 
 export interface GraphqlContextChat {
     telegramChatId: string;
@@ -10,5 +10,5 @@ export interface GraphqlContextChat {
 export interface GraphqlContext {
     request: Request;
     user?: TelegramUser;
-    tokenIssuer: 'tg-web' | 'bff';
+    tokenIssuer: 'tg-web' | 'bff' | 'tg-app';
 }

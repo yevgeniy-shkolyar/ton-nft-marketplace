@@ -12,8 +12,9 @@ import { GqlContextType, GqlExecutionContext } from '@nestjs/graphql';
 import { type Request } from 'express';
 
 import { GraphqlContext, GraphqlContextChat } from '../app/app-context';
-import { TelegramUser } from '../telegram-login-widget/interfaces/telegram-user';
-import { TelegramLoginWidgetService } from '../telegram-login-widget/telegram-login-widget.service';
+import { TelegramUser } from '../telegram/interfaces/telegram-user';
+import { TelegramLoginWidgetService } from '../telegram/telegram-login-widget.service';
+import { TelegramWebAppService } from '../telegram/telegram-web-app.service';
 
 import { AuthService } from './auth.service';
 
@@ -27,6 +28,7 @@ export class AuthGuard implements CanActivate {
         private readonly reflector: Reflector,
         private readonly telegramLoginWidgetService: TelegramLoginWidgetService,
         private readonly authService: AuthService,
+        private readonly telegramWebAppService: TelegramWebAppService,
     ) {}
 
     async canActivate(context: ExecutionContext): Promise<boolean> {
@@ -80,12 +82,16 @@ export class AuthGuard implements CanActivate {
     }): {
         user?: TelegramUser;
         chat?: GraphqlContextChat;
-        issuer: 'bff' | 'tg-web';
+        issuer: 'bff' | 'tg-web' | 'tg-app';
     } => {
         if (issuer === 'tg-web' && typeof token === 'string') {
             return this.telegramLoginWidgetService.decodeTelegramLoginWidgetToken(
                 token,
             );
+        }
+
+        if (issuer === 'tg-app' && typeof token === 'string') {
+            return this.telegramWebAppService.encodeTelegramWebAppToken(token);
         }
 
         if (issuer === 'bff' && typeof token === 'string') {

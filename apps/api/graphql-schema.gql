@@ -63,5 +63,5 @@ enum Resolution {
 
 type User {
   id: String
-  random: String!
+  name: String
 }

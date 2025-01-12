@@ -9,6 +9,7 @@ import NftImage from '@/components/nft-image';
 import Spinner from '@/components/spinner';
 import { NftItemsDocument } from '@/graphql/generated/types';
 import { useInfiniteScroll } from '@/hooks/use-infinite-query';
+import Final from './final';
 
 export default function LazyLoadList({
     cursor,
@@ -89,7 +90,7 @@ export default function LazyLoadList({
                 {loading ? (
                     <Spinner size={48} />
                 ) : (
-                    <h3>All NFT items are loaded.</h3>
+                    <Final />
                 )}
             </div>
         </>
