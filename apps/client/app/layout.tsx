@@ -5,7 +5,10 @@ import type { PropsWithChildren } from 'react';
 
 import '../globals.css';
 
-const mono = Roboto({ subsets: ['cyrillic', 'latin'], weight: '400' });
+const mono = Roboto({
+    subsets: ['cyrillic', 'latin'],
+    weight: ['400'],
+});
 
 export const metadata = {
     title: 'Auth',
