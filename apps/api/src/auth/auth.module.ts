@@ -1,13 +1,13 @@
 import { Module } from '@nestjs/common';
 
 import { LoggerModule } from '../logger/logger.module';
-import { TelegramLoginWidgetModule } from '../telegram-login-widget/telegram-login-widget.module';
+import { TelegramModule } from '../telegram/telegram.module';
 
 import { AuthGuard } from './auth.guards';
 import { AuthService } from './auth.service';
 
 @Module({
-    imports: [LoggerModule, TelegramLoginWidgetModule],
+    imports: [LoggerModule, TelegramModule],
     providers: [AuthGuard, AuthService],
     exports: [AuthGuard, AuthService],
 })

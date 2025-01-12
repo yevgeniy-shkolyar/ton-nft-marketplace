@@ -1,0 +1,8 @@
+#import NftItemFragment from "../fragments/nft-item.fragments.graphql"
+
+query Me {
+    me {
+        id
+        name
+    }
+}

@@ -1,0 +1,4 @@
+fragment UserFragment on NftItem {
+    id
+    name
+}

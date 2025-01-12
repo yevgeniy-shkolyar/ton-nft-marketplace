@@ -34,7 +34,7 @@ export const NftImage = ({
                 alt={alt ?? 'Unnamed'}
                 width={width}
                 height={height}
-                className={cn('transition-all hover:scale-105 w-auto')}
+                className="w-auto"
                 unoptimized
                 onError={handleError}
             />

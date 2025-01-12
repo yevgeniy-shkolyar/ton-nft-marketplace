@@ -7,7 +7,7 @@ import '../globals.css';
 
 const mono = Roboto({
     subsets: ['cyrillic', 'latin'],
-    weight: ['400'],
+    weight: ['300', '400'],
 });
 
 export const metadata = {
