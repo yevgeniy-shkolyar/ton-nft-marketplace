@@ -3,4 +3,13 @@ fragment NftItemFragment on NftItem {
     name
     description
     src: preview(resolution: X500)
+    address {
+        rawFormat
+        frienlyFormat
+    }
+    owner {
+        address {
+            frienlyFormat
+        }
+    }
 }

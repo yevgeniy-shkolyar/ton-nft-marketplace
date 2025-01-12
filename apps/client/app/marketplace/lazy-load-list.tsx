@@ -71,6 +71,10 @@ export default function LazyLoadList({
 
     const loadMoreRef = useInfiniteScroll(callback);
 
+    const loading = Boolean(
+        data === undefined ? cursor : data.nftItems.pageInfo.hasNextPage,
+    );
+
     return (
         <>
             {data?.nftItems.edges.map(({ nftItem }, index) => (
@@ -82,7 +86,7 @@ export default function LazyLoadList({
                 ref={loadMoreRef}
                 className="my-8 w-full text-center text-2xl text-muted-foreground"
             >
-                {data?.nftItems.pageInfo.hasNextPage ? (
+                {loading ? (
                     <Spinner size={48} />
                 ) : (
                     <h3>All NFT items are loaded.</h3>

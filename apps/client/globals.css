@@ -29,7 +29,7 @@ body {
         --muted: var(--tg-theme-hint-color, #f1f5f9);
         --muted-foreground: var(--tg-theme-bg-color, #64748b);
         --accent: var(--tg-theme-accent-text-color, #f1f5f9);
-        --accent-foreground: var(--tg-theme-bg-color, #f8fafc);
+        --accent-foreground: var(--tg-theme-bg-color, #684cfb);
         --destructive: var(--tg-theme-destructive-text-color, #ef4444);
         --destructive-foreground: var(--tg-theme-bg-color, #f8fafc);
         --border: var(--tg-theme-section-separator-color, #e2e8f0);
