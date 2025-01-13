@@ -49,9 +49,13 @@ Telegram Login Widget: https://team-dev.tgmbot.com/
 
 Telegram Web App: https://t.me/tgm_com_bot/team
 
+Graphql Playground: https://team-dev.tgmbot.com/graphql
+
+To use GraphQL Playground, retrieve the Authorization header value using the browser's developer tools.
+
 > This may not be a perfect one-line guide, but these additional tools help improve the DevEx. 
 
-## ► Useful commands
+## ▶️ Useful commands
 
 Verification Command
 
@@ -71,10 +75,10 @@ Run the build of services to ensure the application deployment will be successfu
 yarn build
 ```
 
-Run the build of services to ensure the application deployment will be successful.
+Start client
 
 ```shell
-yarn build
+yarn workspace @ton-nft-marketplace/client start
 ```
 
 Execute the Docker images build process.
@@ -89,6 +93,8 @@ docker buildx bake --load api client
 [Telegram Login Widget](https://demo.tgmbot.com/)
 
 [Telegram Web App](https://t.me/demo_tgm_bot/ton_nft_marketplace)
+
+[Graphql playground](https://demo.tgmbot.com/graphql)
 
 The application is optimized for both mobile and desktop devices and also supports dark mode.
 
