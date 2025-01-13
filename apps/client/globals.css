@@ -34,13 +34,15 @@ body {
         --destructive-foreground: var(--tg-theme-bg-color, #f8fafc);
         --border: var(--tg-theme-section-separator-color, #e2e8f0);
         --sm-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+        --card-gradient: none
     }
     body {
-        background: #E3FDF5;
-        background: linear-gradient(75deg, rgba(227, 253, 245, 0.6), rgba(255, 230, 250, 0.6));
+        background-color: #E3FDF5;
+        background: linear-gradient(35deg, rgba(227, 253, 245, 1), rgba(255, 230, 250, 1));
     }    
 }
 
+ /* TODO: Refactor needed to use the :dark tailwind-selector. */
 @media (prefers-color-scheme: dark) {
     :root {
         --background: var(--tg-theme-bg-color, #1c1c1c);
@@ -61,7 +63,6 @@ body {
         --destructive-foreground: var(--tg-theme-text-color, #ffffff);
         --border: var(--tg-theme-section-separator-color, #374151);
         --sm-shadow: rgba(0, 0, 0, 1) 0px 0px 4px 0px;
-
     }
 
     body {

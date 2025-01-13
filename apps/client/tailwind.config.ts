@@ -1,7 +1,7 @@
 import type { Config } from 'tailwindcss';
 
 const config = {
-    darkMode: ['class'],
+    darkMode: 'media',
     content: ['./components/**/*.{ts,tsx}', './app/**/*.{ts,tsx}'],
     prefix: '',
     theme: {
@@ -15,6 +15,9 @@ const config = {
         extend: {
             boxShadow: {
                 xs: 'var(--sm-shadow)',
+            },
+            backgroundImage: {
+                'card-gradient': 'url("/gradient.svg")',
             },
             colors: {
                 background: 'var(--background)',
