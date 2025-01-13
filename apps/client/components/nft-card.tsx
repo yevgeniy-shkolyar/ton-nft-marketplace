@@ -20,7 +20,7 @@ export const NftCard = ({
                         {children}
                     </div>
                 </div>
-                <div className="space-y-1 p-6 text-sm text-card-foreground overflow-y-hidden">
+                <div className="space-y-1 overflow-y-hidden p-6 text-sm text-card-foreground">
                     <div className="text-2xl leading-none">{name}</div>
                     <div className="py-4 text-justify leading-tight">
                         {description}

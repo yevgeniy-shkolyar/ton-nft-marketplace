@@ -3,13 +3,11 @@
 import { useQuery } from '@apollo/client';
 import React from 'react';
 
-import { MeDocument } from '@/graphql/generated/types';
 import Spinner from '@/components/spinner';
+import { MeDocument } from '@/graphql/generated/types';
 
 export default function Final() {
     const { data } = useQuery(MeDocument);
-
-    const message =  `Appreciate your visit${data?.me.name ? `, ${data.me.name}` : ''}! `;
 
     if (!data) {
         return (
@@ -19,15 +17,11 @@ export default function Final() {
         );
     }
     return (
-        <div className="my-12 mx-4 text-center text-lg md:text-3xl text-card-foreground font-light tracking-wide">
+        <div className="mx-4 my-12 text-center text-lg font-light tracking-wide text-card-foreground md:text-3xl">
             <div className="my-2">
-                Appreciate your visit{data?.me.name && `, ${data.me.name}`}!
+                Appreciate your visit{data.me.name && `, ${data.me.name}`}!
             </div>
-            <div className="my-2">
-                Come back anytime!
-            </div>
+            <div className="my-2">Come back anytime!</div>
         </div>
     );
 }
-
-

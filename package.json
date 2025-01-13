@@ -9,8 +9,9 @@
     "private": true,
     "scripts": {
         "dev": "yarn workspaces foreach --recursive --parallel --interlaced --from '{@ton-nft-marketplace/client,@ton-nft-marketplace/api}' run dev",
-        "verify": "yarn workspaces foreach --parallel --verbose run verify",
-        "release": "dotenv -e .env -e .env.sample -- semantic-release",
+        "verify": "yarn workspaces foreach -Apt run verify",
+        "build": "yarn workspaces foreach -Apt run build",
+        "proxy": "dotenv -e .env.secrets.decrypted -- frpc -c frpc.toml",
         "codegen": "graphql-codegen"
     },
     "packageManager": "yarn@4.5.3",

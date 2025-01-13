@@ -1,12 +1,12 @@
 import React from 'react';
 
 import LazyLoadList from './lazy-load-list';
+import Welcome from './welcome';
 
 import { NftCard } from '@/components/nft-card';
 import { NftImage } from '@/components/nft-image';
 import { NftItemsDocument } from '@/graphql/generated/types';
 import { graphqlRequestClient } from '@/graphql/graphql-request-client';
-import Welcome from './welcome';
 
 export const revalidate = 10;
 

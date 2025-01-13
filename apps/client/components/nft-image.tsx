@@ -3,8 +3,6 @@
 import Image, { ImageProps } from 'next/image';
 import React, { useState } from 'react';
 
-import { cn } from '@/lib/utils';
-
 interface NftImageProps extends Omit<ImageProps, 'src' | 'alt'> {
     alt?: string | null;
     src?: string | null;

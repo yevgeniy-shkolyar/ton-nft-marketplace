@@ -4,12 +4,13 @@ import { useLazyQuery } from '@apollo/client';
 import debounce from 'lodash/debounce';
 import React, { useCallback, useEffect, useRef } from 'react';
 
+import Final from './final';
+
 import { NftCard } from '@/components/nft-card';
 import NftImage from '@/components/nft-image';
 import Spinner from '@/components/spinner';
 import { NftItemsDocument } from '@/graphql/generated/types';
 import { useInfiniteScroll } from '@/hooks/use-infinite-query';
-import Final from './final';
 
 export default function LazyLoadList({
     cursor,
@@ -87,11 +88,7 @@ export default function LazyLoadList({
                 ref={loadMoreRef}
                 className="my-8 w-full text-center text-2xl text-muted-foreground"
             >
-                {loading ? (
-                    <Spinner size={48} />
-                ) : (
-                    <Final />
-                )}
+                {loading ? <Spinner size={48} /> : <Final />}
             </div>
         </>
     );

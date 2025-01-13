@@ -62,5 +62,3 @@ apps/api/src/prisma/client/*
 
 .turbo
 .tsbuildinfo
-
-.env

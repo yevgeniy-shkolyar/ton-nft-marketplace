@@ -3,6 +3,8 @@
 import { Check, Copy } from 'lucide-react';
 import React, { useState } from 'react';
 
+import { cn } from '@/lib/utils';
+
 interface CopyInlineTextBlockProperties {
     title: string;
     value?: string | null;
@@ -32,14 +34,25 @@ const CopyInlineTextBlock: React.FC<CopyInlineTextBlockProperties> = ({
 
     return (
         <div
-            className="items-right items-between my-4 flex cursor-pointer text-muted-foreground md:items-start"
+            className={cn(
+                'items-start my-4 flex cursor-pointer ',
+                isCopied ? 'text-green-600' : 'text-muted-foreground',
+            )}
             onClick={copyToClipboard}
         >
             <div className="cursor-pointer whitespace-nowrap">
                 {title}:&nbsp;
             </div>
 
-            <div className="truncate ">{value}</div>
+            {value && value.length > 20 ? (
+                <>
+                    <div className="truncate">{value.slice(0, -8)}</div>
+                    <div className="whitespace-nowrap">{value.slice(-8)}</div>
+                </>
+            ) : (
+                <div className="truncate">{value}</div>
+            )}
+
             <div className="ml-2 text-right">
                 {isCopied ? (
                     <Check className="size-4" />
