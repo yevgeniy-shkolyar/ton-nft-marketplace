@@ -3,7 +3,6 @@
 import { useRouter } from 'next/navigation';
 import React, { useEffect } from 'react';
 
-import AppLoader from '@/components/app-loader';
 import { Header } from '@/components/header';
 import Spinner from '@/components/spinner';
 
@@ -55,12 +54,12 @@ const AuthCallback = () => {
         }
     }, []);
 
-    return <Header>
-        <div className="my-4 whitespace-nowrap">
-            Magic in progress...
-        </div>
-        <Spinner size={48} />
-    </Header>;
+    return (
+        <Header>
+            <div className="my-4 whitespace-nowrap">Magic in progress...</div>
+            <Spinner size={48} />
+        </Header>
+    );
 };
 
 export default AuthCallback;

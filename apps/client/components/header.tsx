@@ -3,10 +3,12 @@
 import React, { PropsWithChildren } from 'react';
 import type { JSX } from 'react';
 
-export const Header: React.FC<PropsWithChildren> = ({ children }): JSX.Element => {
+export const Header: React.FC<PropsWithChildren> = ({
+    children,
+}): JSX.Element => {
     return (
-        <div className="my-20 mx-4 text-center text-3xl md:text-5xl text-card-foreground font-light leading-normal tracking-wide">
+        <div className="mx-4 my-20 text-center text-3xl font-light leading-normal tracking-wide text-card-foreground md:text-5xl">
             {children}
         </div>
     );
-}
+};

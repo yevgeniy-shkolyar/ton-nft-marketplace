@@ -26,6 +26,8 @@ interface Page {
     }[];
 }
 
+const PROPERTY = 'NFT Friendly Address';
+
 @Injectable()
 export class NftItemService {
     databaseId: string;
@@ -57,7 +59,7 @@ export class NftItemService {
 
                 return this.loadNftItem(notionItems);
             },
-            ms('10m'),
+            ms('2m'),
         );
     }
 
@@ -72,6 +74,12 @@ export class NftItemService {
             database_id: this.databaseId,
             start_cursor: cursor,
             page_size: limit,
+            sorts: [
+                {
+                    property: PROPERTY,
+                    direction: 'ascending',
+                },
+            ],
         });
 
         if (notionResponseValidator.Check(page)) {
@@ -111,8 +119,7 @@ export class NftItemService {
                 return {
                     cursor: result.id,
                     nftItem: nftItemMap.get(
-                        result.properties['NFT Friendly Address'].title[0].text
-                            .content,
+                        result.properties[PROPERTY].title[0].text.content,
                     )!,
                 };
             }),
