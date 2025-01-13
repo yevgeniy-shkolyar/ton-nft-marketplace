@@ -12,7 +12,7 @@
         "verify": "yarn workspaces foreach -Apt run verify",
         "build": "yarn workspaces foreach -Apt run build",
         "proxy": "dotenv -e .env.secrets.decrypted -- frpc -c frpc.toml",
-        "codegen": "graphql-codegen"
+        "codegen": "graphql-codegen -p client"
     },
     "packageManager": "yarn@4.5.3",
     "devDependencies": {
